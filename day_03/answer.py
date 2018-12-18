@@ -45,6 +45,7 @@ print(f'The answer of part 1 is: {np.sum(result > 1)}')
 def find_claim_id(shape, claims):
     matrix = np.zeros(shape)
     throw_out = set()
+    claims_id = set()
 
     for claim in claims:
         matrix_subset = matrix[claim.from_left:claim.from_left + claim.width,
@@ -53,11 +54,10 @@ def find_claim_id(shape, claims):
             throw_out.update(np.unique(matrix_subset))
             throw_out.add(claim.id)
         matrix_subset += claim.id
+        claims_id.add(claim.id)
 
-    for claim in claims:
-        if claim.id not in throw_out:
-            return claim.id
+    return claims_id - throw_out
 
-claim_id = find_claim_id(get_shape(claims), claims)
+claim_id = find_claim_id(get_shape(claims), claims).pop()
 
 print(f'The answer of part 2 is: {claim_id}')

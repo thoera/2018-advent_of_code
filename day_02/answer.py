@@ -2,13 +2,16 @@
 
 from collections import Counter
 
+
 # --- part one ---
+
 
 def parse_inputs(file):
     with open(file, 'r') as f:
         return [line.rstrip() for line in f]
 
 inputs = parse_inputs('input.txt')
+
 
 def compute_checksum(inputs):
     two_times = 0
@@ -24,7 +27,9 @@ def compute_checksum(inputs):
 
 print(f'The answer of part 1 is: {compute_checksum(inputs)}')
 
+
 # --- part two ---
+
 
 def find_boxes(inputs):
     for string_1 in inputs:

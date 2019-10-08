@@ -2,7 +2,9 @@
 
 from itertools import cycle
 
+
 # --- part one ---
+
 
 def parse_inputs(file):
     with open(file, 'r') as f:
@@ -10,12 +12,15 @@ def parse_inputs(file):
 
 inputs = parse_inputs('input.txt')
 
+
 def compute_frequency(inputs):
     return sum(inputs)
 
 print(f'The answer of part 1 is: {compute_frequency(inputs)}')
 
+
 # --- part two ---
+
 
 def compute_calibrated_frequency(inputs):
     frequency = 0

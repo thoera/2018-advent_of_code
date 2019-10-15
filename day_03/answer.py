@@ -23,6 +23,7 @@ def get_coordinates(file):
             claims.append(Coordinates(*(parsing)))
     return claims
 
+
 claims = get_coordinates('input.txt')
 
 
@@ -40,7 +41,9 @@ def fill_matrix(shape, claims):
                claim.from_top:claim.from_top + claim.height] += 1
     return matrix
 
+
 result = fill_matrix(get_shape(claims), claims)
+
 
 print(f'The answer of part 1 is: {np.sum(result > 1)}')
 
@@ -64,6 +67,8 @@ def find_claim_id(shape, claims):
 
     return claims_id - throw_out
 
+
 claim_id = find_claim_id(get_shape(claims), claims).pop()
+
 
 print(f'The answer of part 2 is: {claim_id}')

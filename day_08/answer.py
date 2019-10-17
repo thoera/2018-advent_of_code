@@ -12,27 +12,37 @@ def parse_inputs(file):
 inputs = parse_inputs('input.txt')
 
 
-def get_metadata(inputs):
-    idx = 0
-    metadata = []
-    while inputs:
-        if inputs[idx] == 0:
-            nb_metadata = inputs[idx + 1]
-            metadata.extend(inputs[(idx + 2):(idx + 2 + nb_metadata)])
-            inputs = inputs[:idx] + inputs[(idx + 2 + nb_metadata):]
-            if inputs:
-                inputs[idx - 2] += -1
-            idx -= 2
-        else:
-            idx += 2
-    return metadata
+def compute_value(inputs):
+    children, metadata = inputs[:2]
+    inputs = inputs[2:]
+    scores = []
+    totals = 0
+
+    for i in range(children):
+        total, score, inputs = compute_value(inputs)
+        totals += total
+        scores.append(score)
+
+    totals += sum(inputs[:metadata])
+
+    if children == 0:
+        return (totals, sum(inputs[:metadata]), inputs[metadata:])
+    else:
+        return (
+            totals,
+            sum(scores[k - 1] for k in inputs[:metadata] if k > 0 and
+                k <= len(scores)),
+            inputs[metadata:]
+        )
 
 
-print(f'The answer of part 1 is: {sum(get_metadata(inputs))}')
+total, value, remaining = compute_value(inputs)
+
+
+print(f'The answer of part 1 is: {total}')
 
 
 # --- part two ---
 
 
-inputs = [2, 3, 0, 3, 10, 11, 12, 1, 1, 0, 1, 99, 2, 1, 1, 2]
-print(f'The answer of part 2 is: {}')
+print(f'The answer of part 2 is: {value}')

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from collections import defaultdict
-from itertools import cycle
+from collections import defaultdict, deque
 import re
 
 # --- part one ---
@@ -20,23 +19,16 @@ players, last_marble = parse_inputs('input.txt')
 
 def compute_game(players, last_marble):
     players_score = defaultdict(int)
-    idx = 0
-    game = [0]
+    game = deque([0])
 
     for marble in range(1, last_marble + 1):
-        player = next(players)
-        len_ = len(game)
         if marble % 23 == 0:
-            if idx >= 7:
-                idx -= 7
-            else:
-                idx = len_ + idx - 7
-            players_score[marble % players] += marble + game.pop(idx)
+            game.rotate(7)
+            players_score[marble % players] += marble + game.pop()
+            game.rotate(-1)
         else:
-            idx += 2
-            if idx > len_:
-                idx -= len_
-            game.insert(idx, marble)
+            game.rotate(-1)
+            game.append(marble)
     return game, players_score
 
 
@@ -45,6 +37,7 @@ print(f'The answer of part 1 is: {max(players_score.values())}')
 
 
 # --- part two ---
+
 
 game, players_score = compute_game(players, last_marble * 100)
 print(f'The answer of part 2 is: {max(players_score.values())}')

@@ -5,11 +5,11 @@
 
 
 def parse_inputs(file):
-    with open(file, 'r') as f:
+    with open(file, "r") as f:
         return [int(item) for item in f.read().split()]
 
 
-inputs = parse_inputs('input.txt')
+inputs = parse_inputs("input.txt")
 
 
 def compute_value(inputs):
@@ -30,19 +30,22 @@ def compute_value(inputs):
     else:
         return (
             totals,
-            sum(scores[k - 1] for k in inputs[:metadata] if k > 0 and
-                k <= len(scores)),
-            inputs[metadata:]
+            sum(
+                scores[k - 1]
+                for k in inputs[:metadata]
+                if k > 0 and k <= len(scores)
+            ),
+            inputs[metadata:],
         )
 
 
 total, value, remaining = compute_value(inputs)
 
 
-print(f'The answer of part 1 is: {total}')
+print(f"The answer of part 1 is: {total}")
 
 
 # --- part two ---
 
 
-print(f'The answer of part 2 is: {value}')
+print(f"The answer of part 2 is: {value}")

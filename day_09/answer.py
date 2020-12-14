@@ -10,12 +10,12 @@ import re
 def parse_inputs(file):
     with open(file) as f:
         inputs = f.read()
-    s = re.compile('(^[0-9]+) players.+?([0-9]+) points$')
+    s = re.compile("(^[0-9]+) players.+?([0-9]+) points$")
     players, last_marble = re.search(s, inputs).groups()
     return int(players), int(last_marble)
 
 
-players, last_marble = parse_inputs('input.txt')
+players, last_marble = parse_inputs("input.txt")
 
 
 def compute_game(players, last_marble):
@@ -34,11 +34,11 @@ def compute_game(players, last_marble):
 
 
 game, players_score = compute_game(players, last_marble)
-print(f'The answer of part 1 is: {max(players_score.values())}')
+print(f"The answer of part 1 is: {max(players_score.values())}")
 
 
 # --- part two ---
 
 
 game, players_score = compute_game(players, last_marble * 100)
-print(f'The answer of part 2 is: {max(players_score.values())}')
+print(f"The answer of part 2 is: {max(players_score.values())}")

@@ -7,18 +7,18 @@ from itertools import cycle
 
 
 def parse_inputs(file):
-    with open(file, 'r') as f:
+    with open(file, "r") as f:
         return [int(line) for line in f]
 
 
-inputs = parse_inputs('input.txt')
+inputs = parse_inputs("input.txt")
 
 
 def compute_frequency(inputs):
     return sum(inputs)
 
 
-print(f'The answer of part 1 is: {compute_frequency(inputs)}')
+print(f"The answer of part 1 is: {compute_frequency(inputs)}")
 
 
 # --- part two ---
@@ -36,4 +36,4 @@ def compute_calibrated_frequency(inputs):
             previous_frequencies.add(frequency)
 
 
-print(f'The answer of part 2 is: {compute_calibrated_frequency(inputs)}')
+print(f"The answer of part 2 is: {compute_calibrated_frequency(inputs)}")

@@ -7,11 +7,11 @@ import string
 
 
 def parse_inputs(file):
-    with open(file, 'r') as f:
+    with open(file, "r") as f:
         return f.readline().rstrip()
 
 
-polymer = parse_inputs('input.txt')
+polymer = parse_inputs("input.txt")
 
 
 def lower_upper():
@@ -35,7 +35,7 @@ def find_resulting_polymer(polymer):
     return result
 
 
-print(f'The answer of part 1 is: {len(find_resulting_polymer(polymer))}')
+print(f"The answer of part 1 is: {len(find_resulting_polymer(polymer))}")
 
 
 # --- part two ---
@@ -53,4 +53,4 @@ def find_shortest_polymer(polymer):
     return min(length_polymer)
 
 
-print(f'The answer of part 2 is: {find_shortest_polymer(polymer)}')
+print(f"The answer of part 2 is: {find_shortest_polymer(polymer)}")

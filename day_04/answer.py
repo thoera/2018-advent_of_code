@@ -9,25 +9,25 @@ import re
 
 
 def load_inputs(file):
-    with open(file, 'r') as f:
+    with open(file, "r") as f:
         return sorted([line.rstrip() for line in f])
 
 
-inputs = load_inputs('input.txt')
+inputs = load_inputs("input.txt")
 
 
 def parse_inputs(inputs):
-    Input = namedtuple('Input', ['timestamp', 'guard_id', 'action'])
+    Input = namedtuple("Input", ["timestamp", "guard_id", "action"])
 
     timeline = []
     guards_id = set()
     for i in inputs:
-        if 'Guard' in i:
-            parsing = re.compile(r'\[(.*)\] Guard #(\d*) ([ \w]*)')
+        if "Guard" in i:
+            parsing = re.compile(r"\[(.*)\] Guard #(\d*) ([ \w]*)")
             timestamp, guard_id, action = parsing.search(i).groups()
             guards_id.add(guard_id)
         else:
-            parsing = re.compile(r'\[(.*)\] ([ \w]*)')
+            parsing = re.compile(r"\[(.*)\] ([ \w]*)")
             timestamp, action = parsing.search(i).groups()
         timeline.append(Input(timestamp, guard_id, action))
     return timeline, guards_id
@@ -39,18 +39,17 @@ guards_id = {guard_id: index for index, guard_id in enumerate(guards_id)}
 
 def fill_timeline(timeline, records):
     for record in records:
-        if record.action == 'falls asleep':
+        if record.action == "falls asleep":
             start = int(record.timestamp[-2:])
-        elif record.action == 'wakes up':
+        elif record.action == "wakes up":
             end = int(record.timestamp[-2:])
-            timeline[guards_id[record.guard_id], start:end + 1] += 1
+            timeline[guards_id[record.guard_id], start : end + 1] += 1
     return timeline
 
 
 timeline = fill_timeline(
-        timeline=np.zeros((len(guards_id), 60), dtype=np.int8),
-        records=records
-        )
+    timeline=np.zeros((len(guards_id), 60), dtype=np.int8), records=records
+)
 
 
 def find_sloppy_guard(timeline, guards_id=guards_id):
@@ -67,7 +66,7 @@ def find_minute(timeline, sloppy_guard, guards_id=guards_id):
 
 minute = find_minute(timeline, sloppy_guard)
 
-print(f'The answer of part 1 is: {int(sloppy_guard) * minute}')
+print(f"The answer of part 1 is: {int(sloppy_guard) * minute}")
 
 
 # --- part two ---
@@ -81,4 +80,4 @@ def find_sloppy_guard_2(timeline, guards_id=guards_id):
 
 sloppy_guard_2 = find_sloppy_guard_2(timeline, guards_id=guards_id)
 
-print(f'The answer of part 2 is: {int(sloppy_guard_2[0]) * sloppy_guard_2[1]}')
+print(f"The answer of part 2 is: {int(sloppy_guard_2[0]) * sloppy_guard_2[1]}")
